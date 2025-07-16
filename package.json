@@ -1,7 +1,7 @@
 {
   "name": "problem-sertter",
   "version": "1.0.0",
-  "description": "",
+  "description": "problem setter service for algoclash",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
@@ -11,7 +11,7 @@
     "dev": "concurrently --kill-others \"npm run watch\" \"npm run start\""
   },
   "keywords": [],
-  "author": "",
+  "author": "Soumen Mondal",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
@@ -22,7 +22,9 @@
     "http-status-codes": "^2.3.0",
     "marked": "^16.0.0",
     "mongoose": "^8.16.3",
-    "sanitize-html": "^2.17.0"
+    "sanitize-html": "^2.17.0",
+    "winston": "^3.17.0",
+    "winston-mongodb": "^7.0.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.3",
