@@ -1,15 +1,27 @@
 import { NextFunction, Request, Response } from "express";
+import { BaseError } from "../error";
+import { StatusCodes } from "http-status-codes";
 
-export const errorHandler = (
+function errorHandler(
   err: Error,
-  req: Request,
+  _req: Request,
   res: Response,
-  next: NextFunction,
-  fn : any
-) => {
-  try {
-    return fn(err, req, res, next);
-  } catch (error) {
-    next(err);
+  _next: NextFunction
+) {
+  if (err instanceof BaseError) {
+    return res.status(err.statusCode).json({
+      success: false,
+      message: err.message,
+      data: {},
+      error: err.name,
+    });
   }
-};
+  return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+    success: false,
+    message: "An unexpected error occurred",
+    data: {},
+    error: err,
+  });
+}
+
+export default errorHandler;
