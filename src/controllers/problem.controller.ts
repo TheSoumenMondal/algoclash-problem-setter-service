@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-import { NotImplementedError } from "../error";
 import { StatusCodes } from "http-status-codes";
 import Services from "../services";
 
@@ -33,12 +32,25 @@ async function getProblem(_req: Request, _res: Response, next: NextFunction) {
   }
 }
 
-function updateProblem(_req: Request, _res: Response) {
-  throw new NotImplementedError("updateProblem is not implemented yet.");
-}
-
-function deleteProblem(_req: Request, _res: Response) {
-  throw new NotImplementedError("deleteProblem is not implemented yet.");
+async function updateProblem(
+  _req: Request,
+  _res: Response,
+  next: NextFunction
+) {
+  try {
+    const problem = await problemService.updateProblem(
+      _req.params.id,
+      _req.body
+    );
+    return _res.status(StatusCodes.OK).json({
+      success: true,
+      message: "Problem updated successfully",
+      error: null,
+      data: problem,
+    });
+  } catch (error) {
+    next(error);
+  }
 }
 
 async function getAllProblems(
@@ -53,6 +65,24 @@ async function getAllProblems(
       message: "All problem fetched successfully",
       error: null,
       data: problems,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function deleteProblem(
+  _req: Request,
+  _res: Response,
+  next: NextFunction
+) {
+  try {
+    await problemService.deleteProblem(_req.params.id);
+    return _res.status(StatusCodes.OK).json({
+      success: true,
+      message: "Problem deleted successfully",
+      error: null,
+      data: null,
     });
   } catch (error) {
     next(error);

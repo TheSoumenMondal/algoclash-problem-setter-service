@@ -11,9 +11,9 @@ problemRouter.get("/ping", (_: any, res: Response) => {
 });
 
 problemRouter.post("/", problemController.addProblem);
-problemRouter.get("/:id", problemController.getProblem);
 problemRouter.get("/", problemController.getAllProblems);
-// problemRouter.put("/:id", problemController.updateProblem);
-// problemRouter.delete("/:id", problemController.deleteProblem);
+problemRouter.get("/:id", problemController.getProblem);
+problemRouter.put("/:id", problemController.updateProblem);
+problemRouter.delete("/:id", problemController.deleteProblem);
 
 export default problemRouter;

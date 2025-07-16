@@ -24,7 +24,9 @@ class ProblemService {
       description: sanitizedDescription,
     };
 
-    const problem = this.problemRepository.createProblem(sanitizedProblemData);
+    const problem = await this.problemRepository.createProblem(
+      sanitizedProblemData
+    );
     return problem;
   }
 
@@ -36,6 +38,28 @@ class ProblemService {
   async getProblems() {
     const allProblems = await this.problemRepository.getAllProblems();
     return allProblems;
+  }
+
+  async updateProblem(problemId: string, problemData: Partial<IProblem>) {
+    if (problemData.description) {
+      const sanitizedDescription = await sanitizeMarkdown(
+        problemData.description as string
+      );
+      problemData = {
+        ...problemData,
+        description: sanitizedDescription,
+      };
+    }
+
+    const problem = await this.problemRepository.updateProblem(
+      problemId,
+      problemData
+    );
+    return problem;
+  }
+
+  async deleteProblem(_id: string) {
+    await this.problemRepository.deleteProblem(_id);
   }
 }
 

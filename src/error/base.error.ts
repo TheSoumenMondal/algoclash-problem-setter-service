@@ -3,7 +3,12 @@ class BaseError extends Error {
   public statusCode: number;
   public details: any;
 
-  constructor(name: string, statusCode: number, description: string, details: any = {}) {
+  constructor(
+    name: string,
+    statusCode: number,
+    description: string,
+    details: any = {}
+  ) {
     super(description);
     this.name = name;
     this.statusCode = statusCode;
