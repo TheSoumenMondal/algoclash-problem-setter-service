@@ -29,6 +29,27 @@ const problemSchema = new mongoose.Schema<IProblem>(
       required: [true, "Difficulty is required"],
       default: "easy",
     },
+    codeStubs : [
+      {
+        language : {
+          type: String,
+          enum : ["PYTHON" , "JAVA" , "CPP"],
+          required: [true, "Language is required"],
+        },
+        startSnippet : {
+          type: String,
+          required: [true, "Start snippet is required"],
+        },
+        userSnippet : {
+          type : String,
+          required: [true, "User snippet is required"],
+        },
+        endSnippet : {
+          type: String,
+          required: [true, "End snippet is required"],
+        },
+      }
+    ],
     editorial: {
       type: String,
     },
